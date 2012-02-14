@@ -9,7 +9,12 @@ include /usr/share/dpkg/buildflags.mk
 include /usr/share/cdbs/1/rules/debhelper.mk
 include /usr/share/mozilla-devscripts/xpi.mk
 
-export VERSION=$(DEB_UPSTREAM_VERSION)
+export VERSION := $(DEB_UPSTREAM_VERSION)
+export XUL_CFLAGS := -I/usr/include/firefox -I/usr/include/firefox/nspr
+export XUL_LDFLAGS := -L/usr/lib/firefox-devel/lib -lxpcomglue_s -lxul -lxpcom \
+    -lmozalloc -lplds4 -lplc4 -lnspr4 -lpthread -ldl
+export XPCOM_ABI_FLAGS=-Wl,-rpath=/usr/lib/firefox/
+
 
 # Use this when #688438 is fixed, and get rid of Makefile.combined
 #MOZ_XPI_BUILD_COMMAND = make

@@ -1,3 +1,9 @@
+mozilla-gnome-keyring (0.6.5~git20121016-0ubuntu1) quantal; urgency=low
+
+  * Adapt package for Quantal Quetzal
+
+ -- Alexander Korsunsky <fat.lobyte9@gmail.com>  Mon, 29 Oct 2012 15:46:41 +0100
+
 mozilla-gnome-keyring (0.6.4-0) UNRELEASED; urgency=low
 
   * Fix FTBFS where the platform name contains a /. (Closes: #689189)
