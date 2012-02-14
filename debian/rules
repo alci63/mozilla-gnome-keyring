@@ -6,7 +6,12 @@
 include /usr/share/cdbs/1/rules/debhelper.mk
 include /usr/share/mozilla-devscripts/xpi.mk
 
-export VERSION=$(DEB_UPSTREAM_VERSION)
+export VERSION := $(DEB_UPSTREAM_VERSION)
+export XUL_CFLAGS := -I/usr/include/firefox -I/usr/include/firefox/nspr
+export XUL_LDFLAGS := -L/usr/lib/firefox-devel/lib -lxpcomglue_s -lxul -lxpcom \
+    -lmozalloc -lplds4 -lplc4 -lnspr4 -lpthread -ldl
+export XPCOM_ABI_FLAGS=-Wl,-rpath=/usr/lib/firefox/
+
 
 MOZ_XPI_BUILD_COMMAND = make
 MOZ_XPI_CLEAN_COMMAND = make clean

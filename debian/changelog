@@ -1,3 +1,9 @@
+mozilla-gnome-keyring (0.6.3-1ubuntu1) precise; urgency=low
+
+  * Adapt package for precise pangolin
+
+ -- Alexander Korsunsky <fat.lobyte9@gmail.com>  Wed, 06 Jun 2012 17:11:01 +0200
+
 mozilla-gnome-keyring (0.6.3-1) experimental; urgency=low
 
   * Initial release  (Closes: #659826).
