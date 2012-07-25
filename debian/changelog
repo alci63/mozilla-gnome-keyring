@@ -1,3 +1,10 @@
+mozilla-gnome-keyring (0.6.4~git20120725) precise; urgency=low
+
+  * New upstream git snapshot.
+  * Rebuild for Firefox 14
+
+ -- Alexander Korsunsky <fat.lobyte9@gmail.com>  Wed, 25 Jul 2012 22:33:40 +0200
+
 mozilla-gnome-keyring (0.6.4~git20120606-0ubuntu1) precise; urgency=low
 
   * New upstream git snapshot.
