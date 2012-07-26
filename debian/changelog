@@ -1,4 +1,4 @@
-mozilla-gnome-keyring (0.6.4~git20120725) precise; urgency=low
+mozilla-gnome-keyring (0.6.4~git20120725-0ubuntu1) precise; urgency=low
 
   * New upstream git snapshot.
   * Rebuild for Firefox 14
