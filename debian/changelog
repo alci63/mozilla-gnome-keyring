@@ -1,3 +1,11 @@
+mozilla-gnome-keyring (0.6.5-0ubuntu1) precise; urgency=low
+
+  * Rebuild for Firefox 17
+  * Update to 0.6.5, drop fix-missing-hashfunction.patch
+  * Add use-nullptr-instead-of-nsnull.patch
+
+ -- Alexander Korsunsky <fat.lobyte9@gmail.com>  Fri, 23 Nov 2012 14:03:37 +0100
+
 mozilla-gnome-keyring (0.6.4~git20120725-0ubuntu3) precise; urgency=low
 
   * Rebuild for Firefox 16
