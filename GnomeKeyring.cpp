@@ -139,7 +139,7 @@ static const char *kDisabledHostAttrName = "disabledHost";
 template<class T, void F(T *)>
 class AutoPtr {
   public:
-    AutoPtr() : mPtr(nsnull) { }
+    AutoPtr() : mPtr(nullptr) { }
 
     operator T*() {
       return mPtr;
@@ -449,7 +449,7 @@ foundToLoginInfo(GnomeKeyringFound* found)
 {
   nsCOMPtr<nsILoginInfo> loginInfo = do_CreateInstance(NS_LOGININFO_CONTRACTID);
   if (!loginInfo)
-    return nsnull;
+    return nullptr;
 
   loginInfo->SetPassword(NS_ConvertUTF8toUTF16(found->secret));
 
@@ -587,7 +587,7 @@ NS_IMETHODIMP GnomeKeyring::Init()
                                         getter_AddRefs(prefService));
   if (ret != NS_OK) { return ret; }
 
-  ret = prefService->ReadUserPrefs(nsnull);
+  ret = prefService->ReadUserPrefs(nullptr);
   if (ret != NS_OK) { return ret; }
 
   ret = prefService->GetBranch(kPrefsBranch, getter_AddRefs(pref));
@@ -666,9 +666,13 @@ NS_IMETHODIMP GnomeKeyring::ModifyLogin(nsILoginInfo *oldLogin,
    * just remove the old login and add the new one */
   nsCOMPtr<nsILoginInfo> newLogin( do_QueryInterface(modLogin, &interfaceok) );
   if (interfaceok == NS_OK) {
-    nsresult rv = RemoveLogin(oldLogin);
-    rv |= AddLogin(newLogin);
-    return rv;
+    nsresult rvremovelogin = RemoveLogin(oldLogin);
+    nsresult rvaddlogin = AddLogin(newLogin);
+    if(NS_FAILED(rvremovelogin)) {
+        return rvremovelogin;
+    } else {
+        return rvaddlogin;
+    }
   }
 
   /* Otherwise, it has to be an nsIPropertyBag.
