@@ -1,3 +1,11 @@
+mozilla-gnome-keyring (0.6.6~git20130111-0ubuntu1) precise; urgency=low
+
+  * Rebuild for Firefox 18
+  * New upstream Git snapshot
+  * Drop use-nullptr-instead-of-nsnull.patch, merged upstream
+
+ -- Alexander Korsunsky <fat.lobyte9@gmail.com>  Tue, 15 Jan 2013 19:45:28 +0100
+
 mozilla-gnome-keyring (0.6.5-0ubuntu1) precise; urgency=low
 
   * Rebuild for Firefox 17
