@@ -4,7 +4,7 @@ FULLNAME         ?= $(PACKAGE)-$(VERSION)
 XPI_DEFAULT = target.xpi
 XPI_TARGET = ../$(FULLNAME).xpi
 
-ALLTMPDIR = link-xulrunner xpi-xulrunner link-icedove xpi-icedove xpi
+ALLTMPDIR = link-firefox xpi-firefox link-thunderbird xpi-thunderbird xpi
 SEDADDR = \|Thunderbird|,\|</em:targetApplication>|
 
 
@@ -16,34 +16,39 @@ $(XPI_TARGET): xpi
 	rm -f */*.xpi
 	cd xpi && zip -rq ../$@ *
 
-xpi: xpi-xulrunner xpi-icedove
+xpi: xpi-firefox xpi-thunderbird
 	mkdir -p $@
-	for i in xpi-xulrunner xpi-icedove; do \
+	for i in xpi-firefox xpi-thunderbird; do \
 	  cp -a $$i/platform $$i/chrome $$i/defaults -t $@; \
 	done
 	T=$$(tempfile) && \
-	  sed -n -e "$(SEDADDR)"'p' xpi-icedove/install.rdf > "$$T" && \
-	  printf "$(SEDADDR)"'{\nR'"$$T"'\nd;}' | sed -f - xpi-xulrunner/install.rdf \
+	  sed -n -e "$(SEDADDR)"'p' xpi-thunderbird/install.rdf > "$$T" && \
+	  printf "$(SEDADDR)"'{\nR'"$$T"'\nd;}' | sed -f - xpi-firefox/install.rdf \
 	  > xpi/install.rdf
 	cat /dev/null > xpi/chrome.manifest
-	sed -e 's/ABI=/application={ec8030f7-c20a-464f-9b0e-13a3a9e97384} ABI=/' xpi-xulrunner/chrome.manifest >> xpi/chrome.manifest
-	sed -e 's/ABI=/application={3550f703-e582-4d05-9a08-453d09bdfdc6} ABI=/' xpi-icedove/chrome.manifest >> xpi/chrome.manifest
+	sed -e 's/ABI=/application={ec8030f7-c20a-464f-9b0e-13a3a9e97384} ABI=/' xpi-firefox/chrome.manifest >> xpi/chrome.manifest
+	sed -e 's/ABI=/application={3550f703-e582-4d05-9a08-453d09bdfdc6} ABI=/' xpi-thunderbird/chrome.manifest >> xpi/chrome.manifest
 	sort -ur -o xpi/chrome.manifest xpi/chrome.manifest
 
-xpi-xulrunner: link-xulrunner
+xpi-firefox: link-firefox
 	unzip -o -d "$@" $</$(XPI_DEFAULT)
 
-xpi-icedove: link-icedove
+xpi-thunderbird: link-thunderbird
 	unzip -o -d "$@" $</$(XPI_DEFAULT)
 
-link-xulrunner:
+link-firefox:
 	mkdir -p "$@" && $(MAKE) -C "$@" -f ../../Makefile VPATH=../.. \
+	  XUL_CFLAGS="-I/usr/include/firefox -I/usr/include/firefox/nspr" \
+	  XUL_LDFLAGS="-L/usr/lib/firefox-devel/lib -lxpcomglue_s -lxul -lxpcom -lmozalloc -lplds4 -lplc4 -lnspr4 -lpthread -ldl" \
+	  XPCOM_ABI_FLAGS=-Wl,-rpath=/usr/lib/firefox/ \
 	  XPI_TARGET=$(XPI_DEFAULT)
 
-link-icedove:
+link-thunderbird:
 	mkdir -p "$@" && $(MAKE) -C "$@" -f ../../Makefile VPATH=../.. \
-	  XUL_PKG_NAME=icedove LDFLAGS="$(LDFLAGS) -lmozalloc" \
-	  TARGET=libgnomekeyring-icedove.so XPI_TARGET=$(XPI_DEFAULT)
+	  XUL_CFLAGS="-I/usr/include/thunderbird -I/usr/include/thunderbird/nspr" \
+	  XUL_LDFLAGS="-L/usr/lib/thunderbird-devel/lib -lxpcomglue_s -lxul -lxpcom -lmozalloc -lplds4 -lplc4 -lnspr4 -lpthread -ldl" \
+	  XPCOM_ABI_FLAGS=-Wl,-rpath=/usr/lib/thunderbird/ \
+	  TARGET=libgnomekeyring-thunderbird.so XPI_TARGET=$(XPI_DEFAULT)
 
 clean-all:
 	rm -rf $(ALLTMPDIR)
