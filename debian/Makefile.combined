@@ -40,14 +40,14 @@ link-firefox:
 	mkdir -p "$@" && $(MAKE) -C "$@" -f ../../Makefile VPATH=../.. \
 	  XUL_CFLAGS="-I/usr/include/firefox -I/usr/include/firefox/nspr" \
 	  XUL_LDFLAGS="-L/usr/lib/firefox-devel/lib -lxpcomglue_s -lxul -lxpcom -lmozalloc -lplds4 -lplc4 -lnspr4 -lpthread -ldl" \
-	  XPCOM_ABI_FLAGS=-Wl,-rpath=/usr/lib/firefox/ \
+	  XPCOM_ABI_FLAGS="-Wl,-rpath=/usr/lib/firefox/ -Wl,-whole-archive -lmozglue -Wl,-no-whole-archive" \
 	  XPI_TARGET=$(XPI_DEFAULT)
 
 link-thunderbird:
 	mkdir -p "$@" && $(MAKE) -C "$@" -f ../../Makefile VPATH=../.. \
 	  XUL_CFLAGS="-I/usr/include/thunderbird -I/usr/include/thunderbird/nspr" \
 	  XUL_LDFLAGS="-L/usr/lib/thunderbird-devel/lib -lxpcomglue_s -lxul -lxpcom -lmozalloc -lplds4 -lplc4 -lnspr4 -lpthread -ldl" \
-	  XPCOM_ABI_FLAGS=-Wl,-rpath=/usr/lib/thunderbird/ \
+	  XPCOM_ABI_FLAGS="-Wl,-rpath=/usr/lib/thunderbird/ -Wl,-whole-archive -lmozglue -Wl,-no-whole-archive"\
 	  TARGET=libgnomekeyring-thunderbird.so XPI_TARGET=$(XPI_DEFAULT)
 
 clean-all:

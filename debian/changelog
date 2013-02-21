@@ -1,3 +1,11 @@
+mozilla-gnome-keyring (0.6.8~git20130220-0ubuntu1) precise; urgency=low
+
+  * Rebuild for Firefox 19
+  * New upstream Git snapshot
+  * Add fix-nsresult-typecast.patch, fixes FTBFS
+
+ -- Alexander Korsunsky <fat.lobyte9@gmail.com>  Wed, 20 Feb 2013 19:44:55 +0100
+
 mozilla-gnome-keyring (0.6.7-1ubuntu1) precise; urgency=low
 
   [ Ximin Luo ]
