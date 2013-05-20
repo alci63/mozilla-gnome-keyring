@@ -21,7 +21,7 @@
 
 Name:		mozilla-gnome-keyring
 Version:	0.6.8
-Release:	2%{?dist}
+Release:	3%{?dist}
 Summary:	Store mozilla passwords in GNOME Keyring
 
 Group:		Applications/Internet
@@ -77,6 +77,9 @@ rm -rf %{buildroot}
 
 
 %changelog
+* Mon May 20 2013 Alexander Korsunsky <fat.lobyte9@gmail.com> - 0.6.8-3
+- Rebuild for Firefox 21
+
 * Sat Apr 06 2013 Alexander Korsunsky <fat.lobyte9@gmail.com> - 0.6.8-2
 - Rebuild for Firefox 20
 
